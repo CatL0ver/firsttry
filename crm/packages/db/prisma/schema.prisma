@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ShippingType {
+  PICKUP
+  COURIER
+  TRANSPORT
+}
+
+enum ApplicationStatus {
+  NO_INVOICES
+  WAITING_SECOND
+  WAITING_CONFIRMATION
+  CONFIRMED
+}
+
+model Hospital {
+  id             String         @id @default(cuid())
+  name           String         @unique
+  counterparties Counterparty[]
+}
+
+model Counterparty {
+  id              String        @id @default(cuid())
+  name            String
+  hospitalId      String
+  discountPercent Decimal       @db.Decimal(5, 2)
+  hospital        Hospital      @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  applications    Application[]
+
+  @@unique([name, hospitalId])
+}
+
+model Application {
+  id             String            @id @default(cuid())
+  counterpartyId String
+  date           DateTime
+  shippingType   ShippingType
+  confirmed      Boolean           @default(false)
+  status         ApplicationStatus @default(NO_INVOICES)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  counterparty   Counterparty      @relation(fields: [counterpartyId], references: [id], onDelete: Restrict)
+  invoices       Invoice[]
+}
+
+model Invoice {
+  id            String      @id @default(cuid())
+  applicationId String
+  invoiceNumber String
+  driveUrl      String
+  createdAt     DateTime    @default(now())
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+}

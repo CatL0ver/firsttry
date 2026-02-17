@@ -32,6 +32,26 @@ Run on Windows:
 .\dist\crm-launcher.exe
 ```
 
+## Build portable release archive for users (recommended)
+
+```bash
+pnpm build:exe
+pnpm release:archive
+```
+
+Result:
+- `release/crm-portable-win64.zip`
+
+User flow after download:
+1. Unzip archive
+2. Copy `.env.local.example` -> `.env.local`
+3. Fill env values
+4. Double-click `start-crm.bat`
+5. Open `http://localhost:3000`
+
+Detailed guide:
+- `docs/INSTALL_WINDOWS_RU.md`
+
 ## Move project to new repository `CatL0ver/crm`
 
 ```bash

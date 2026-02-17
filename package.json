@@ -10,6 +10,7 @@
     "db:migrate": "pnpm --filter @crm/db prisma:migrate",
     "build:standalone": "pnpm --filter web build && node scripts/prepare-standalone.mjs",
     "build:exe": "pnpm build:standalone && pnpm --filter crm-launcher build:exe",
+    "release:archive": "bash scripts/make-release-archive.sh",
     "repo:catlover": "bash scripts/setup-new-repo.sh"
   },
   "devDependencies": {

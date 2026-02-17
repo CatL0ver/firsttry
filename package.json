@@ -7,7 +7,10 @@
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "db:generate": "pnpm --filter @crm/db prisma:generate",
-    "db:migrate": "pnpm --filter @crm/db prisma:migrate"
+    "db:migrate": "pnpm --filter @crm/db prisma:migrate",
+    "build:standalone": "pnpm --filter web build && node scripts/prepare-standalone.mjs",
+    "build:exe": "pnpm build:standalone && pnpm --filter crm-launcher build:exe",
+    "repo:catlover": "bash scripts/setup-new-repo.sh"
   },
   "devDependencies": {
     "turbo": "^2.0.0"

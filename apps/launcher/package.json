@@ -1,0 +1,13 @@
+{
+  "name": "crm-launcher",
+  "version": "0.1.0",
+  "private": true,
+  "bin": "index.cjs",
+  "type": "commonjs",
+  "scripts": {
+    "build:exe": "pkg index.cjs --targets node20-win-x64 --output ../../dist/crm-launcher.exe"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  }
+}
